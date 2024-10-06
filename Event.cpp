@@ -1,4 +1,3 @@
-
 #define SDL_MAIN_HANDLED
 #include <iostream>
 #include <SDL.h>
@@ -23,11 +22,22 @@ int main()
                 running = false;
             else if (e.type == SDL_KEYDOWN)
             {
-                switch (e.key.keysym.sym)
+                const Uint8 *state = SDL_GetKeyboardState(NULL);
+                if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP])
                 {
-                case SDLK_RIGHT:
-                    cout << "Right Key is pressed" << endl;
                     r.x += 10;
+                    r.y += 10;
+                }
+                switch (e.key.keysym.sym) // accessing only one key at one time
+                {
+                case SDLK_RIGHT: // Right key
+                    cout << "Right Key is pressed" << endl;
+                    r.x += 10; // x direction ke coordinate change ho rahi hh
+                    break;
+
+                case SDLK_LEFT:
+                    cout << "Left Key  is Pressed" << endl;
+                    r.y += 10;
                     break;
                 }
             }
@@ -38,20 +48,23 @@ int main()
                 case SDLK_RIGHT:
                     cout << "The key is released" << endl;
                     break;
+
+                case SDLK_LEFT:
+                    cout << "The right key is released" << endl;
+                    break;
                 }
             }
-            else if(e.type == SDL_MOUSEMOTION)
+            else if (e.type == SDL_MOUSEMOTION)
             {
                 SDL_GetMouseState(&r.x, &r.y);
-                running = false;
             }
         }
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // White Color ke liye
         SDL_RenderClear(renderer);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Balck Color ke liye
         SDL_RenderFillRect(renderer, &r);
 
         SDL_RenderPresent(renderer);
-        SDL_Delay(1);
+        SDL_Delay(1000);
     }
 }
