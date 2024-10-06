@@ -23,37 +23,50 @@ int main()
             else if (e.type == SDL_KEYDOWN)
             {
                 const Uint8 *state = SDL_GetKeyboardState(NULL);
-                if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP])
+                if ((state[SDL_SCANCODE_LCTRL] && state[SDL_SCANCODE_UP]) || (state[SDL_SCANCODE_RCTRL] && state[SDL_SCANCODE_UP]))
                 {
-                    r.x += 10;
-                    r.y += 10;
+                    r.x -= 50;
+                    r.y -= 50;
+                    cout << r.x << '\t' << r.y << endl;
                 }
-                switch (e.key.keysym.sym) // accessing only one key at one time
+                else
                 {
-                case SDLK_RIGHT: // Right key
-                    cout << "Right Key is pressed" << endl;
-                    r.x += 10; // x direction ke coordinate change ho rahi hh
-                    break;
+                    switch (e.key.keysym.sym) // accessing only one key at one time
+                    {
+                    case SDLK_RIGHT: // Right key
+                        cout << "Right Key is pressed" << endl;
+                        r.x += 10; // x direction ke coordinate change ho rahi hh
+                        break;
 
-                case SDLK_LEFT:
-                    cout << "Left Key  is Pressed" << endl;
-                    r.y += 10;
-                    break;
+                    case SDLK_LEFT:
+                        cout << "Left Key  is Pressed" << endl;
+                        r.x -= 10;
+                        break;
+
+                    case SDLK_UP:
+                        r.y -= 10;
+                        cout << r.x << '\t' << r.y << endl;
+                        break;
+
+                    case SDLK_DOWN:
+                        r.y += 10;
+                        break;
+                    }
                 }
             }
-            else if (e.type == SDL_KEYUP)
-            {
-                switch (e.key.keysym.sym)
-                {
-                case SDLK_RIGHT:
-                    cout << "The key is released" << endl;
-                    break;
+            // else if (e.type == SDL_KEYUP)
+            // {
+            //     switch (e.key.keysym.sym)
+            //     {
+            //     case SDLK_RIGHT:
+            //         cout << "The key is released" << endl;
+            //         break;
 
-                case SDLK_LEFT:
-                    cout << "The right key is released" << endl;
-                    break;
-                }
-            }
+            //     case SDLK_LEFT:
+            //         cout << "The right key is released" << endl;
+            //         break;
+            //     }
+            // }
             else if (e.type == SDL_MOUSEMOTION)
             {
                 SDL_GetMouseState(&r.x, &r.y);
@@ -65,6 +78,6 @@ int main()
         SDL_RenderFillRect(renderer, &r);
 
         SDL_RenderPresent(renderer);
-        SDL_Delay(1000);
+        SDL_Delay(10);
     }
 }

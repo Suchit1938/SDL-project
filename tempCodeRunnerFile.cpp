@@ -1,0 +1,1 @@
+state[SDL_SCANCODE_LCTRL] || state[SDL_SCANCODE_UP]
