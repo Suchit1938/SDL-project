@@ -25,9 +25,19 @@ int main()
                 const Uint8 *state = SDL_GetKeyboardState(NULL);
                 if ((state[SDL_SCANCODE_LCTRL] && state[SDL_SCANCODE_UP]) || (state[SDL_SCANCODE_RCTRL] && state[SDL_SCANCODE_UP]))
                 {
+                    cout << "CTRL + UP Key  is Pressed" << endl;
                     r.x -= 50;
                     r.y -= 50;
-                    cout << r.x << '\t' << r.y << endl;
+                    cout << r.x << '\t' << r.y << endl
+                         << endl;
+                }
+                else if ((state[SDL_SCANCODE_LCTRL] && state[SDL_SCANCODE_DOWN]) || (state[SDL_SCANCODE_RCTRL] && state[SDL_SCANCODE_DOWN]))
+                {
+                    cout << "CTRL + DOWN Key  is Pressed" << endl;
+                    r.x += 50;
+                    r.y += 50;
+                    cout << r.x << '\t' << r.y << endl
+                         << endl;
                 }
                 else
                 {
@@ -35,41 +45,46 @@ int main()
                     {
                     case SDLK_RIGHT: // Right key
                         cout << "Right Key is pressed" << endl;
+                        cout << r.x << '\t' << r.y << endl
+                             << endl;
                         r.x += 10; // x direction ke coordinate change ho rahi hh
                         break;
 
                     case SDLK_LEFT:
                         cout << "Left Key  is Pressed" << endl;
+                        cout << r.x << '\t' << r.y << endl
+                             << endl;
                         r.x -= 10;
                         break;
 
                     case SDLK_UP:
                         r.y -= 10;
-                        cout << r.x << '\t' << r.y << endl;
+                        cout << "UP Key  is Pressed" << endl;
+                        cout << r.x << '\t' << r.y << endl
+                             << endl;
                         break;
 
                     case SDLK_DOWN:
                         r.y += 10;
+                        cout << "Down Key  is Pressed" << endl;
+                        cout << r.x << '\t' << r.y << endl
+                             << endl;
                         break;
                     }
                 }
             }
-            // else if (e.type == SDL_KEYUP)
-            // {
-            //     switch (e.key.keysym.sym)
-            //     {
-            //     case SDLK_RIGHT:
-            //         cout << "The key is released" << endl;
-            //         break;
-
-            //     case SDLK_LEFT:
-            //         cout << "The right key is released" << endl;
-            //         break;
-            //     }
-            // }
             else if (e.type == SDL_MOUSEMOTION)
             {
                 SDL_GetMouseState(&r.x, &r.y);
+            }
+            else if (e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                r.h -= 10;
+                r.w -= 10;
+                cout << "The mouse key is preesed " << endl
+                     << "height and width are " << endl
+                     << r.h << "  " << r.w << endl
+                     << endl;
             }
         }
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // White Color ke liye
@@ -80,4 +95,5 @@ int main()
         SDL_RenderPresent(renderer);
         SDL_Delay(10);
     }
+    return 0;
 }
